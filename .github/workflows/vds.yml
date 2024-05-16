@@ -1,0 +1,26 @@
+# Credits By github.com/UserOfGTG
+
+name: WinCRD
+
+on: 
+  workflow_dispatch:
+    inputs:
+      authcode:
+        description: 'Type CRD Code'
+        required: true
+      pincode:
+        description: 'Set PIN'
+        required: true
+  
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Preparing to Setup.. 
+      run: ./main.ps1
+    - name: Starting CRD... 
+      run: ${{ github.event.inputs.authcode }} -pin=${{ github.event.inputs.pincode }}
+    - name: Done! Keep Active. 
+      run: ./timeout.ps1
